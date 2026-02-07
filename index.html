@@ -3,512 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Профиль — Финансы и управленческий учет</title>
+  <title>Максим Голбан — Финансы и управление</title>
+
   <style>
     :root{
-      --bg0:#070A12;
-      --bg1:#0B1220;
-      --card:#0F1B31cc;
-      --stroke:#20314f;
-      --text:#EAF0FF;
-      --muted:#A9B4CD;
-      --accent:#7C3AED;   /* фиолетовый */
-      --accent2:#06B6D4;  /* циан */
-      --accent3:#22C55E;  /* зеленый */
-      --warn:#F59E0B;     /* янтарный */
-      --shadow: 0 18px 45px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 22px;
-      --max: 1100px;
+      --bg0:#0b1020;
+      --bg1:#0d1630;
+      --card:#0f1a35cc;
+      --stroke:#ffffff1a;
+      --text:#e8ecff;
+      --muted:#b7c0e6;
+      --accent:#7c5cff;
+      --accent2:#2fd3c8;
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(124,58,237,.25), transparent 55%),
-        radial-gradient(900px 600px at 90% 20%, rgba(6,182,212,.18), transparent 55%),
-        radial-gradient(900px 700px at 60% 100%, rgba(34,197,94,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      line-height:1.55;
-      letter-spacing:.2px;
-    }
-
-    a{ color:inherit; }
-
-    /* subtle grid */
-    .grid-overlay{
-      pointer-events:none;
-      position:fixed; inset:0;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(closest-side at 50% 10%, rgba(0,0,0,.9), transparent 70%);
-      opacity:.35;
+        radial-gradient(900px 500px at 80% 10%, rgba(47,211,200,.18), transparent 60%),
+        linear-gradient(180deg,var(--bg0),var(--bg1));
     }
 
     .wrap{
-      max-width:var(--max);
+      max-width:1100px;
       margin:0 auto;
-      padding: 46px 20px 64px;
+      padding:28px 18px 60px;
     }
 
-    /* hero */
+    /* HERO */
     .hero{
-      position:relative;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: calc(var(--radius2) + 8px);
-      padding: 34px 26px 26px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
-        radial-gradient(800px 280px at 20% 0%, rgba(124,58,237,.25), transparent 55%),
-        radial-gradient(600px 240px at 80% 10%, rgba(6,182,212,.22), transparent 55%);
-      box-shadow: var(--shadow);
-      overflow:hidden;
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      padding:24px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
     }
-    .hero::after{
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 280px;
+      gap:24px;
+      align-items:center;
+    }
+
+    /* PHOTO */
+    .photo-wrap{
+      position:relative;
+      border-radius:22px;
+      padding:4px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+    }
+
+    .photo-wrap::after{
       content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(700px 220px at 70% 0%, rgba(255,255,255,.10), transparent 55%);
-      opacity:.7;
+      position:absolute;
+      inset:0;
+      border-radius:22px;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(6px);
       pointer-events:none;
     }
 
+    .photo{
+      display:block;
+      width:100%;
+      border-radius:18px;
+      object-fit:cover;
+      background:#111;
+    }
+
+    /* TEXT */
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(8,12,22,.35);
-      backdrop-filter: blur(10px);
-      font-size: 13px;
-      color: var(--muted);
-      width: fit-content;
-    }
-    .dot{
-      width:9px;height:9px;border-radius:999px;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      box-shadow: 0 0 0 4px rgba(6,182,212,.12);
-    }
-
-    /* gradient title with transparent text */
-    h1{
-      margin: 12px 0 8px;
-      font-weight: 860;
-      letter-spacing: -0.8px;
-      line-height: 1.05;
-      font-size: clamp(30px, 4.6vw, 54px);
-      background: linear-gradient(90deg, rgba(234,240,255,.95), rgba(6,182,212,.95), rgba(124,58,237,.95));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      opacity:.95;
-      text-shadow: 0 0 30px rgba(6,182,212,.12);
-    }
-
-    .lead{
-      margin: 0;
-      max-width: 72ch;
-      color: rgba(234,240,255,.86);
-      font-size: 16px;
-    }
-    .lead b{
-      color: var(--text);
-      font-weight: 720;
-    }
-
-    .hero-row{
-      display:grid;
-      gap: 18px;
-      grid-template-columns: 1.35fr .65fr;
-      margin-top: 18px;
-      align-items: start;
-    }
-
-    .mini{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(10,16,28,.35);
-      border-radius: var(--radius);
-      padding: 14px 14px 12px;
-      backdrop-filter: blur(10px);
-    }
-    .mini h3{
-      margin: 0 0 8px;
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 650;
-      letter-spacing:.35px;
-      text-transform: uppercase;
-    }
-    .mini p{
-      margin:0;
-      font-size: 14px;
-      color: rgba(234,240,255,.9);
-    }
-
-    /* section */
-    section{ margin-top: 28px; }
-    .section-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin: 0 0 14px;
-      font-size: 14px;
-      letter-spacing:.35px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .section-title .bar{
-      width: 18px; height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      opacity:.95;
-    }
-
-    /* skill cards */
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .card{
-      grid-column: span 6;
-      position:relative;
-      border-radius: var(--radius2);
-      padding: 16px 16px 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      overflow:hidden;
-      transform: translateZ(0);
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(400px 160px at 20% 0%, rgba(6,182,212,.18), transparent 60%),
-        radial-gradient(420px 160px at 90% 10%, rgba(124,58,237,.22), transparent 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .card:hover{
-      transform: translateY(-4px);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 18px 46px rgba(0,0,0,.38);
-    }
-    .card h4{
-      position:relative;
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -0.2px;
-      font-weight: 800;
-    }
-    .card p{
-      position:relative;
-      margin: 0;
-      color: rgba(234,240,255,.86);
-      font-size: 14px;
-    }
-    .pill{
-      position:relative;
-      display:inline-flex;
-      margin-top: 12px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: rgba(234,240,255,.92);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(7,10,18,.35);
-      backdrop-filter: blur(10px);
-      width: fit-content;
-    }
-
-    /* cases */
-    .cases{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .case{
-      grid-column: span 6;
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(180deg, rgba(15,27,49,.55), rgba(7,10,18,.35));
-      padding: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      position:relative;
-      overflow:hidden;
-    }
-    .case::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(520px 220px at 10% 0%, rgba(245,158,11,.14), transparent 55%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .case .kicker{
-      position:relative;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom: 10px;
-      color: rgba(234,240,255,.9);
-      font-weight: 780;
-    }
-    .case .kicker span{
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(245,158,11,.10);
-      color: rgba(255,255,255,.88);
-      font-weight: 700;
-    }
-    .case ul{
-      position:relative;
-      margin: 0;
-      padding-left: 18px;
-      color: rgba(234,240,255,.84);
-      font-size: 14px;
-    }
-    .case li{ margin: 7px 0; }
-
-    /* tools tags */
-    .tags{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 14px;
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(10,16,28,.35);
-      backdrop-filter: blur(10px);
-    }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(7,10,18,.35);
-      color: rgba(234,240,255,.9);
-      font-size: 13px;
-      transition: transform .18s ease, border-color .18s ease;
-      user-select:none;
-      white-space: nowrap;
-    }
-    .tag:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.22);
-    }
-    .tag i{
-      width: 10px; height: 10px; border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      opacity:.9;
       display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      margin-bottom:10px;
     }
 
-    /* footer callouts */
-    .footer{
-      margin-top: 22px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .note{
-      grid-column: span 7;
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(15,27,49,.45);
-      padding: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.22);
-    }
-    .note h4{
-      margin:0 0 8px;
-      font-size: 15px;
-      font-weight: 820;
-    }
-    .note p{ margin:0; color: rgba(234,240,255,.86); font-size: 14px; }
-
-    .cta{
-      grid-column: span 5;
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
-        radial-gradient(520px 220px at 20% 0%, rgba(34,197,94,.18), transparent 60%);
-      padding: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.24);
-    }
-    .cta h4{
-      margin:0 0 8px;
-      font-size: 15px;
-      font-weight: 860;
-      letter-spacing: -0.2px;
-    }
-    .cta .row{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .chip{
-      padding: 9px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(7,10,18,.35);
-      font-size: 13px;
-      color: rgba(234,240,255,.9);
-    }
-    .chip strong{ font-weight: 820; }
-
-    /* responsive */
-    @media (max-width: 900px){
-      .hero-row{ grid-template-columns: 1fr; }
-      .card{ grid-column: span 12; }
-      .case{ grid-column: span 12; }
-      .note{ grid-column: span 12; }
-      .cta{ grid-column: span 12; }
+    h1{
+      margin:6px 0 8px;
+      font-size:clamp(28px,4vw,44px);
+      font-weight:800;
+      line-height:1.1;
+      background:linear-gradient(90deg,#fff,#cfd8ff 40%,#2fd3c8);
+      -webkit-background-clip:text;
+      color:transparent;
     }
 
-    /* reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .card, .tag{ transition: none; }
-      .card:hover, .tag:hover{ transform:none; }
+    .subtitle{
+      color:var(--muted);
+      max-width:70ch;
+      font-size:15px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width:900px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+      .photo-wrap{
+        max-width:260px;
+        margin:0 auto;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
-
   <main class="wrap">
-    <header class="hero">
-      <div class="badge"><span class="dot"></span><span>Управленческий учет • Финансы • Операционная прозрачность</span></div>
-      <h1>Обо мне</h1>
+    <section class="hero">
+      <div class="hero-grid">
 
-      <div class="hero-row">
-        <p class="lead">
-          Зачастую руководитель не имеет актуальной достоверной информации о текущих процессах в продажах, закупках,
-          производстве, запасах и деньгах, принимает решения интуитивно. Я помогу на базе своего опыта разобраться в том,
-          что реально есть в вашем учете: подскажу, насколько можно верить цифрам и как превратить данные в управляемый
-          план действий.
-        </p>
-
-        <aside class="mini">
-          <h3>Фокус</h3>
-          <p>Проверяемость цифр → единая логика отчетности → управляемые решения.</p>
-        </aside>
-      </div>
-    </header>
-
-    <section>
-      <div class="section-title"><span class="bar"></span><span>Что предлагаю</span></div>
-
-      <div class="cards">
-        <article class="card">
-          <h4>Отчетность, дашборды и KPI</h4>
-          <p>Операционная и стратегическая отчетность по продажам, производству, складу, логистике, закупкам и финансам.</p>
-          <div class="pill">Результат: единая картина по группе</div>
-        </article>
-
-        <article class="card">
-          <h4>Динамическое планирование производства</h4>
-          <p>Уникальный опыт построения и внедрения динамического планирования (разработка партнера).</p>
-          <div class="pill">Результат: план «живет» вместе со спросом</div>
-        </article>
-
-        <article class="card">
-          <h4>Верификация данных и экспресс-аудит</h4>
-          <p>Экспресс-аудит или глубокий анализ, если есть сомнения в достоверности учета и отчетов.</p>
-          <div class="pill">Результат: ясно, где «ломается» цифра</div>
-        </article>
-
-        <article class="card">
-          <h4>Бюджетирование</h4>
-          <p>Построение системы бюджетирования: правила, лимиты, ответственность, контроль исполнения.</p>
-          <div class="pill">Результат: управляемые расходы и прогноз</div>
-        </article>
-
-        <article class="card">
-          <h4>Единое казначейство группы</h4>
-          <p>Организация централизованного казначейства и автоматизация процессов платежей и контроля.</p>
-          <div class="pill">Результат: прозрачность денег и приоритетов</div>
-        </article>
-
-        <article class="card">
-          <h4>Финансовая модель снижения потерь</h4>
-          <p>Рабочая модель, помогающая снижать потери на производстве и в непроизводственных процессах.</p>
-          <div class="pill">Результат: меньше потерь → выше маржа</div>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-title"><span class="bar"></span><span>Примеры кейсов</span></div>
-
-      <div class="cases">
-        <article class="case">
-          <div class="kicker">Кейс 1: «Цифрам нельзя верить» <span>Верификация</span></div>
-          <ul>
-            <li>Сверка учетных источников: продажи / закупки / склад / деньги.</li>
-            <li>Выявление расхождений, причин и ответственных точек возникновения ошибки.</li>
-            <li>Фиксация правил: единая методология, контрольные отчеты, регламенты.</li>
-          </ul>
-        </article>
-
-        <article class="case">
-          <div class="kicker">Кейс 2: «Нет управляемого плана» <span>Планирование</span></div>
-          <ul>
-            <li>Настройка KPI и дашбордов для ежедневного контроля.</li>
-            <li>Связка производства, запасов и финансового цикла в одну модель.</li>
-            <li>Превращение данных в план действий: что делать сегодня и что менять системно.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-title"><span class="bar"></span><span>Инструменты</span></div>
-
-      <div class="tags" role="list" aria-label="Инструменты и элементы системы">
-        <span class="tag" role="listitem"><i></i>Дашборды</span>
-        <span class="tag" role="listitem"><i></i>KPI</span>
-        <span class="tag" role="listitem"><i></i>Управленческая отчетность</span>
-        <span class="tag" role="listitem"><i></i>План-факт</span>
-        <span class="tag" role="listitem"><i></i>Бюджетирование</span>
-        <span class="tag" role="listitem"><i></i>Казначейство</span>
-        <span class="tag" role="listitem"><i></i>Автоматизация</span>
-        <span class="tag" role="listitem"><i></i>Финансовая модель</span>
-        <span class="tag" role="listitem"><i></i>Склад / запасы</span>
-        <span class="tag" role="listitem"><i></i>Логистика</span>
-        <span class="tag" role="listitem"><i></i>Закупки</span>
-        <span class="tag" role="listitem"><i></i>Производство</span>
-      </div>
-    </section>
-
-    <section class="footer">
-      <div class="note">
-        <h4>Форматы сотрудничества</h4>
-        <p>Почасовая консультация, абонплата, проект.</p>
-      </div>
-
-      <div class="cta">
-        <h4>Оплата</h4>
-        <div class="row">
-          <div class="chip"><strong>Без НДС</strong> от ИП</div>
-          <div class="chip"><strong>С НДС 22%</strong> от ООО</div>
+        <!-- TEXT -->
+        <div>
+          <span class="badge">Финансовый директор • 20+ лет опыта</span>
+          <h1>Максим Голбан</h1>
+          <p class="subtitle">
+            Более 20 лет опыта в финансах — от менеджера в банке до финансового директора
+            промышленной группы компаний. Помогаю превратить управленческий учёт
+            в реальный инструмент принятия решений.
+          </p>
         </div>
+
+        <!-- PHOTO -->
+        <div class="photo-wrap">
+          <img
+            src="profile.jpg"
+            alt="Максим Голбан — финансовый директор"
+            class="photo"
+          />
+        </div>
+
       </div>
     </section>
   </main>
